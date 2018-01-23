@@ -27,6 +27,7 @@
 #include "patientfillerstep.h"
 //#include "presentationstatefillerstep.h"  // future use
 #include "temporaldimensionfillerstep.h"
+#include "tifffileclassifierstep.h"
 #include "volumefillerstep.h"
 
 namespace udg {
@@ -37,6 +38,11 @@ namespace {
 bool containsMHDFiles(const QStringList &files)
 {
     return !files.isEmpty() && files.first().endsWith(".mhd", Qt::CaseInsensitive);
+}
+
+bool containsTiffFiles(const QStringList &files)
+{
+    return !files.isEmpty() && (files.first().endsWith(".tif", Qt::CaseInsensitive) || files.first().endsWith(".tiff", Qt::CaseInsensitive));
 }
 
 }
@@ -128,6 +134,10 @@ QList<Patient*> PatientFiller::processFiles(const QStringList &files)
     {
         return processMHDFiles(files);
     }
+    else if (containsTiffFiles(files))
+    {
+        return processTiffFiles(files);
+    }
     else
     {
         return processDICOMFiles(files);
@@ -152,6 +162,26 @@ QList<Patient*> PatientFiller::processMHDFiles(const QStringList &files)
         if (!mhdFileClassiferStep.fillIndividually())
         {
             ERROR_LOG("Can't process MHD file " + file);
+        }
+
+        emit progress(++m_numberOfProcessedFiles);
+    }
+
+    return m_patientFillerInput->getPatientList();
+}
+
+QList<Patient*> PatientFiller::processTiffFiles(const QStringList &files)
+{
+    TiffFileClassifierStep tiffFileClassiferStep;
+    tiffFileClassiferStep.setInput(m_patientFillerInput);
+
+    foreach (const QString &file, files)
+    {
+        m_patientFillerInput->setFile(file);
+
+        if (!tiffFileClassiferStep.fillIndividually())
+        {
+            ERROR_LOG("Can't process TIFF file " + file);
         }
 
         emit progress(++m_numberOfProcessedFiles);

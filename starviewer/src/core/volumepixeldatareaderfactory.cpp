@@ -27,6 +27,7 @@
 #include "vtkdcmtkbydefaultvolumepixeldatareaderselector.h"
 #include "volumepixeldatareadervtkdcmtk.h"
 #include "volumepixeldatareadervtkgdcm.h"
+#include "volumepixeldatareadervtktiff.h"
 
 #include <QList>
 
@@ -61,6 +62,11 @@ VolumePixelDataReader* VolumePixelDataReaderFactory::getReader() const
         case VTKGDCMPixelDataReader:
             reader = new VolumePixelDataReaderVTKGDCM();
             DEBUG_LOG("Volume pixel data will be read using VTK-GDCM");
+            break;
+
+        case VTKTIFFPixelDataReader:
+            reader = new VolumePixelDataReaderVtkTiff();
+            DEBUG_LOG("Volume pixel data will be read using VTK-TIFF");
             break;
     }
 

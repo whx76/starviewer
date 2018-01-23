@@ -32,7 +32,7 @@ class VolumePixelDataReaderFactory {
 
 public:
     /// The different choosable implementations of VolumePixelDataReader.
-    enum PixelDataReaderType { ITKDCMTKPixelDataReader, ITKGDCMPixelDataReader, VTKDCMTKPixelDataReader, VTKGDCMPixelDataReader };
+    enum PixelDataReaderType { ITKDCMTKPixelDataReader, ITKGDCMPixelDataReader, VTKDCMTKPixelDataReader, VTKGDCMPixelDataReader, VTKTIFFPixelDataReader };
 
     /// Configures the factory according to the given volume, deciding the appropriate reader implementation. Call this before using getter methods.
     void setVolume(Volume *volume);

@@ -68,6 +68,9 @@ private:
     /// Processes the given MHD files and returns the generated patients.
     QList<Patient*> processMHDFiles(const QStringList &files);
 
+    /// Processes the given TIFF files and returns the generated patients.
+    QList<Patient*> processTiffFiles(const QStringList &files);
+
     /// Processes the given DICOM files and returns the generated patients.
     QList<Patient*> processDICOMFiles(const QStringList &files);
 

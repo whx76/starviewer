@@ -435,7 +435,9 @@ HEADERS += extensionfactory.h \
     sliceorientedvolumepixeldata.h \
     voxelindex.h \
     systemrequirements.h \
-    systemrequirementstest.h
+    systemrequirementstest.h \
+    tifffileclassifierstep.h \
+    volumepixeldatareadervtktiff.h
 
 SOURCES += extensionmediator.cpp \
     displayableid.cpp \
@@ -819,7 +821,9 @@ SOURCES += extensionmediator.cpp \
     sliceorientedvolumepixeldata.cpp \
     voxelindex.cpp \
     systemrequirements.cpp \
-    systemrequirementstest.cpp
+    systemrequirementstest.cpp \
+    tifffileclassifierstep.cpp \
+    volumepixeldatareadervtktiff.cpp
 
 win32 {
     HEADERS += windowsfirewallaccess.h \

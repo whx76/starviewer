@@ -64,6 +64,10 @@ VolumePixelDataReaderFactory::PixelDataReaderType VtkDcmtkByDefaultVolumePixelDa
         // MetaImages currently must be read with ITK-GDCM
         return VolumePixelDataReaderFactory::ITKGDCMPixelDataReader;
     }
+    else if (volume->getImage(0)->getSOPInstanceUID().contains("TIFFImage"))
+    {
+        return VolumePixelDataReaderFactory::VTKTIFFPixelDataReader;
+    }
     else if (hasJPEG2000TransferSyntax(volume) || hasSegmentedPalette(volume))
     {
         // DCMTK doesn't support JPEG2000 for free, and doesn't support segmented palettes either
